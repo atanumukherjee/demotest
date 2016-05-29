@@ -10,4 +10,4 @@ change2
 change3
 change4
 change5
- 
+to test the pool SCM service through git plugins 
