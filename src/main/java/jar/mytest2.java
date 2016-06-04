@@ -8,7 +8,6 @@ public class mytest2 {
 
 	public static void sayHello() {
 		System.out.println("MyTest2 says hello!");
-		 System.out.println("This is the example of dependency");
 	}
 
 	}
