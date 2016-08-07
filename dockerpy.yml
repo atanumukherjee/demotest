@@ -1,0 +1,11 @@
+---
+- name: Install pip
+  yum:
+    pkg: "{{ item }}"
+    state: installed
+  with_items:
+    - python-dev
+    - python-pip
+- name: Install Docker-py
+  pip:
+    name: docker-py

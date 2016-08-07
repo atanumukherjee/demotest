@@ -1,0 +1,39 @@
+---
+# tasks file for helloworldimage
+- name: Create necessary directories
+  file:
+    path: "{{ item }}"
+    mode: 0755
+    state: directory
+  with_items:
+    - "/docker/helloworldimage"
+
+- name: Copy test files to /docker/helloworldimage
+  copy:
+    src: "{{ item }}"
+    dest: "/docker/helloworldimage/{{ item }}"
+  with_items:
+    - "Dockerfile"
+
+- name: Build Test container
+  shell: docker build -t helloworldimage:v1 .
+  args:
+    chdir: /docker/helloworldimage
+
+
+- name: data container
+  docker:
+   name: helloworld
+   image: helloworldimage:v1
+   #docker_user: "1001:980"
+   state: started
+   privileged: false
+   stop_timeout: 30
+   restart_policy: on-failure
+   restart_policy_retry: 5
+  # volumes:
+  #  - /data
+   #command: "while true; do echo hello world; sleep 1; done"
+#- name: start the container
+  #shell: docker start mydata
+  #shell: docker run  -v /data --name mydata testimage /bin/bash
