@@ -1,9 +1,0 @@
----
-- name: Setting up docker Server
-  hosts: all
-  #sudo: yes
-  #sudo_user: "{{ ansible_user }}"
-  roles:
-   - { role: dockerimage, tags: ['dockerimage'] }
-   - { role: estdockerimage, tags: ['estdockerimage'] }
-   - { role: helloworldimage, tags: ['helloworldimage'] }

@@ -1,5 +1,0 @@
-[docker]
-10.0.2.18 ansible_user=docker 
-#ansible_user1=amukherjee
-
-
