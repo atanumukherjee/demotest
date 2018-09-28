@@ -1,0 +1,5 @@
+
+Below command of git give u the latest commit in the branch. We can take into consideration that was the fresh branch in use.
+*********
+ git for-each-ref --sort=-committerdate refs/heads/
+*****************
