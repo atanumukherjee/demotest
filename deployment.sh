@@ -25,8 +25,22 @@ checking_brach()
 
 run_cluster_bundle()
 		{
-			ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunklive_rsa4k_201702  -l splunk ulvlfisj01 " date; /opt/splunk/splunk/bin/splunk show shcluster-status -auth cogatamukherjee:Wednesday123; date"
+			ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunklive_rsa4k_201702  -l splunk ulvlfimw02 " date; /opt/splunk/splunk/bin/splunk apply shcluster-bundle -target https://ulvlfisj01:8089  -auth cogatamukherjee:Wednesday123; date"
 		}
+
+restart_shbundle()
+        {
+            ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunklive_rsa4k_201702  -l splunk ulvlfisj01 "cd /opt/splunk/splunk/bin; ./splunk rolling-restart shcluster-members"
+        }
+
+exe_indexerbundle()
+        {
+            ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunklive_rsa4k_201702  -l splunk ulvlfimw02 "date; /opt/splunk/splunk/bin/splunk apply cluster-bundle; date"
+        }
+restart_peers
+        {
+            ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunklive_rsa4k_201702  -l splunk ulvlfimw02 "/opt/splunk/splunk/bin/splunk rolling-restart cluster-peers"
+        }
 
 
 show_menus() {
@@ -51,7 +65,7 @@ read_options(){
                         2) run_cluster_bundle ;;
                         3) restart_shbundle ;;
                         4) exe_indexerbundle ;;
-			5) restart_peers;;
+			            5) restart_peers;;
                         6) exit 0;;
                         *) echo -e "${RED}Error...${STD}" && sleep 2
                 esac

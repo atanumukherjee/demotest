@@ -1,0 +1,2 @@
+Command to check the status of the search head in Search head cluster(Servers)
+date; /opt/splunk/splunk/bin/splunk show shcluster-status
