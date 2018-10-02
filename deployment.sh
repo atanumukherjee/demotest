@@ -1,5 +1,9 @@
 #/bin/bash
 set -x
+var="$1"
+var1="$2"
+var2="$3"
+var3="$4"
 gitoperation()
 {
 Date=`date +%Y-%m-%d`
@@ -20,26 +24,26 @@ git diff master
 
 checking_brach()
 		{
-			ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunklive_rsa4k_201702  -l splunk ulvlfimw02 "cd /opt/splunk/splunk/etc;$(typeset -f gitoperation);gitoperation"
+			ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunkdev_rsa4k_201702  -l splunk $var2 "cd /opt/splunk/splunk/etc;$(typeset -f gitoperation);gitoperation"
 		}
 
 run_cluster_bundle()
 		{
-			ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunklive_rsa4k_201702  -l splunk ulvlfimw02 " date; /opt/splunk/splunk/bin/splunk apply shcluster-bundle -target https://ulvlfisj01:8089  -auth cogatamukherjee:Wednesday123; date"
+			ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunkdev_rsa4k_201702  -l splunk $var2 " date; /opt/splunk/splunk/bin/splunk apply shcluster-bundle -target https://ulvlfisj01:8089  -auth $var:$var1; date"
 		}
 
 restart_shbundle()
         {
-            ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunklive_rsa4k_201702  -l splunk ulvlfisj01 "cd /opt/splunk/splunk/bin; ./splunk rolling-restart shcluster-members"
+            ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunkdev_rsa4k_201702  -l splunk $var3 "cd /opt/splunk/splunk/bin; ./splunk rolling-restart shcluster-members"
         }
 
 exe_indexerbundle()
         {
-            ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunklive_rsa4k_201702  -l splunk ulvlfimw02 "date; /opt/splunk/splunk/bin/splunk apply cluster-bundle; date"
+            ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunkdev_rsa4k_201702  -l splunk $var2 "date; /opt/splunk/splunk/bin/splunk apply cluster-bundle; date"
         }
-restart_peers
+restart_peers()
         {
-            ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunklive_rsa4k_201702  -l splunk ulvlfimw02 "/opt/splunk/splunk/bin/splunk rolling-restart cluster-peers"
+            ssh -o "StrictHostKeyChecking no" -i ~/.ssh/ssh_splunkdev_rsa4k_201702  -l splunk $var2 "/opt/splunk/splunk/bin/splunk rolling-restart cluster-peers"
         }
 
 
@@ -52,7 +56,7 @@ show_menus() {
                 echo "2. Run the Search head bundle on mw02"
                 echo "3. Restart the bundle on Searchhead sj01"
                 echo "4. Execute the bundle for Indexer on mw02"
-		echo "5. Restart the peers on mw02"
+		        echo "5. Restart the peers on mw02"
                 echo "6. Exit"
                 }
 
